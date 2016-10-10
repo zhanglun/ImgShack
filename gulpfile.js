@@ -36,7 +36,7 @@ gulp.task('webpack:build-dev', function () {
 
 // bin process 的编译
 gulp.task('babel:electron-main', function () {
-  return gulp.src([SRC_PATH + '/config/**/*.js', SRC_PATH + '/bin/**/*.js}', SRC_PATH + '/common/**/*.js'], { base: SRC_PATH })
+  return gulp.src([SRC_PATH + '/config/**/*.js', SRC_PATH + '/bin/**/*.js', SRC_PATH + '/common/**/*.js'], { base: SRC_PATH })
     .pipe(babel({
       presets: ['es2015']
     }))
