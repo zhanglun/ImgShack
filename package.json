@@ -21,7 +21,9 @@
   },
   "homepage": "https://github.com/zhanglun/ImgShack#readme",
   "dependencies": {
+    "base64-url": "^1.3.2",
     "electron": "latest",
+    "hmacsha1": "^1.0.0",
     "vue": "^2.0.1"
   },
   "devDependencies": {
