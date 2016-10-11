@@ -2,6 +2,7 @@ var path = require('path');
 var gulp = require('gulp');
 var babel = require("gulp-babel");
 var gutil = require('gulp-util');
+var gCopy = require('gulp-copy');
 var webpack = require('webpack');
 var webpackConfig = require('./webpack.config.js');
 var electron = require('electron-connect').server.create();
@@ -57,5 +58,10 @@ gulp.task('watch:build', function () {
   gulp.watch([SRC_PATH + '/bin/**/*.js', SRC_PATH + '/{common, config}/**/*.js'], ['babel:electron-main']);
 });
 
+gulp.task('copy:lib', function () {
+  return gulp.src([RESOURCE_SRC_PATH + '/lib/**/*.js'], { base: RESOURCE_SRC_PATH + '/lib' })
+    .pipe(gulp.dest(RESOURCE_BUILD_PATH + '/lib/'));
+});
 
-gulp.task('dev', ['watch:build', 'watch']);
+
+gulp.task('dev', ['copy:lib', 'watch:build', 'watch']);
