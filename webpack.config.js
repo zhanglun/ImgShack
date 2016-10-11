@@ -54,6 +54,12 @@ module.exports = {
         loader: 'style!css',
       },
       {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        loaders: [
+          'url?limit=10000&&hash=sha512&digest=hex&name=images/[hash].[ext]'
+        ],
+      },
+      {
         test: /\.vue$/,
         loader: 'vue',
         exclude: ['/node_modules/'],
