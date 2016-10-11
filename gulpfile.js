@@ -59,7 +59,7 @@ gulp.task('watch:build', function () {
 });
 
 gulp.task('copy:lib', function () {
-  return gulp.src([RESOURCE_SRC_PATH + '/lib/**/*.js'], { base: RESOURCE_SRC_PATH + '/lib' })
+  return gulp.src([RESOURCE_SRC_PATH + '/lib/**/*.{js,swf}'], { base: RESOURCE_SRC_PATH + '/lib' })
     .pipe(gulp.dest(RESOURCE_BUILD_PATH + '/lib/'));
 });
 

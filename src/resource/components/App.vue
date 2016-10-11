@@ -1,7 +1,8 @@
 <template>
     <div class="uploader" id="uploader">
-        <div class="uploader-header">
+        <div class="uploader-header" id="container">
             <h1>ImgShack, file uploader</h1>
+            <button id="browse">upload</button>
         </div>
         <div class="uploader-body">
             <div class="uploader-body--drop"></div>
@@ -9,12 +10,37 @@
     </div>
 </template>
 <script>
+  import { createToken } from '../util/createToken';
+  import { createUploader } from '../util/createUploader';
+
   export default {
     data() {
       return {};
     },
-    ready() {
+    mounted() {
       console.log('!!!app');
+
+        let bucket = 'blog';
+//上传到七牛后保存的文件名
+        var param = {};
+        param.scope = bucket;
+// param.callbackUrl = 'http://your.domain.com/callback';
+        param.callbackBody = 'filename=$(fname)&filesize=$(fsize)';
+        let uploadToken = createToken(param);
+
+        console.log(uploadToken);
+        let uploader = createUploader({
+            browse_button: 'go',
+            drop_element: 'uploader',
+            container: 'container',
+            domain: 'http://7xnrrd.com1.z0.glb.clouddn.com',
+            token: uploadToken,
+        });
+        console.log(uploader);
+        uploader.bind('PostInit', function(){
+            console.log(arguments);
+        });
+        uploader.init();
     }
   }
 </script>
