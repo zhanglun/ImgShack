@@ -39,20 +39,31 @@ module.exports = {
         ],
         loader: "babel-loader",
         query: {
-          presets: ['es2015', 'react'],
-          plugins: ['transform-runtime'],
+          presets: ['es2015'],
+          // plugins: ['transform-runtime'],
         },
         include: [RESOURCE_SRC_PATH, SRC_PATH],
       },
       {
-        test: /.less$/,
+        test: /\.less$/,
         loader: 'style!css!less',
         include: [RESOURCE_SRC_PATH],
       },
       {
-        test: /.css$/,
+        test: /\.css$/,
         loader: 'style!css',
-      }
+      },
+      {
+        test: /\.vue$/,
+        loader: 'vue',
+        exclude: ['/node_modules/'],
+        include: [RESOURCE_SRC_PATH],
+      },
+    ],
+  },
+  babel: {
+    presets: [
+      'es2015',
     ],
   },
   devServer: {
@@ -61,6 +72,7 @@ module.exports = {
     inline: true,
     progress: true,
   },
+  devtool: '#eval-source-map',
   externals: {
     'electron': 'require("electron")',
     'net': 'require("net")',

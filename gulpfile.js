@@ -24,6 +24,7 @@ var devCompiler = webpack(webpackConfigDev);
 
 // renderer process 的 webpack 编译
 gulp.task('webpack:build-dev', function () {
+  console.log('------> webpack dev');
   devCompiler.run(function (err, status) {
     if (err) {
       throw new gutil.PluginError('webpack:build-dev', err);
@@ -48,11 +49,11 @@ gulp.task('watch', ['babel:electron-main', 'webpack:build-dev'], function () {
 
   electron.start();
   gulp.watch([BUILD_PATH + '/{bin, common, config}/**/*.js'], electron.restart);
-  gulp.watch([RESOURCE_BUILD_PATH + '/**/*.{html,js,less,css}'], electron.reload);
+  gulp.watch([RESOURCE_BUILD_PATH + '/**/*.{html,js,less,css,vue}'], electron.reload);
 });
 
 gulp.task('watch:build', function () {
-  gulp.watch([RESOURCE_SRC_PATH + '/**/*.{html,js,less,css}'], ['webpack:build-dev']);
+  gulp.watch([RESOURCE_SRC_PATH + '/**/*.{html,js,less,css,vue}'], ['webpack:build-dev']);
   gulp.watch([SRC_PATH + '/bin/**/*.js', SRC_PATH + '/{common, config}/**/*.js'], ['babel:electron-main']);
 });
 
