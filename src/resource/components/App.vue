@@ -33,7 +33,6 @@
             domain: 'http://7i7gl0.com1.z0.glb.clouddn.com',
             token: uploadToken,
         });
-        console.log(uploader);
         uploader.bind('PostInit', function(){
             console.log('init!', arguments);
         });
