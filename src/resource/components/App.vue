@@ -2,7 +2,7 @@
     <div class="uploader" id="uploader">
         <div class="uploader-header" id="container">
             <h1>ImgShack, file uploader</h1>
-            <button id="browse">upload</button>
+            <button id="go">upload</button>
         </div>
         <div class="uploader-body">
             <div class="uploader-body--drop"></div>
@@ -20,27 +20,27 @@
     mounted() {
       console.log('!!!app');
 
-        let bucket = 'blog';
+        let bucket = 'zhanglun';
 //上传到七牛后保存的文件名
         var param = {};
         param.scope = bucket;
-// param.callbackUrl = 'http://your.domain.com/callback';
-        param.callbackBody = 'filename=$(fname)&filesize=$(fsize)';
-        let uploadToken = createToken(param);
+        let uploadToken = createToken(param, 100000);
 
-        console.log(uploadToken);
         let uploader = createUploader({
             browse_button: 'go',
             drop_element: 'uploader',
             container: 'container',
-            domain: 'http://7xnrrd.com1.z0.glb.clouddn.com',
+            domain: 'http://7i7gl0.com1.z0.glb.clouddn.com',
             token: uploadToken,
         });
         console.log(uploader);
         uploader.bind('PostInit', function(){
-            console.log(arguments);
+            console.log('init!', arguments);
         });
-        uploader.init();
+        uploader.bind('FileUploaded', function(up, file, info){
+            console.log(up, file, info)
+        });
+
     }
   }
 </script>
