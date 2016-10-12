@@ -1,13 +1,18 @@
 <template>
-    <div class="uploader" id="uploader">
-        <div class="uploader-header" id="container">
-            <h1>ImgShack, file uploader</h1>
-            <button id="go">upload</button>
-        </div>
-        <div class="uploader-body">
-            <div class="uploader-body--drop"></div>
-        </div>
-    </div>
+	<div id="app">
+		<div class="uploader" id="uploader">
+			<div class="uploader-header" id="container">
+				<h1>ImgShack, file uploader</h1>
+				<button id="go">upload</button>
+                
+			</div>
+			<div class="uploader-body">
+				<div class="uploader-body--drop"></div>
+			</div>
+		</div>
+        <!--<file-list></file-list>-->
+	</div>
+
 </template>
 <script>
   import { createToken } from '../util/createToken';
@@ -21,7 +26,7 @@
       console.log('!!!app');
 
         let bucket = 'zhanglun';
-//上传到七牛后保存的文件名
+        //上传到七牛后保存的文件名
         var param = {};
         param.scope = bucket;
         let uploadToken = createToken(param, 100000);
@@ -44,33 +49,33 @@
   }
 </script>
 <style lang="less">
-    @uploader-height: 600px;
-    @header-height: 60px;
-    .uploader {
-        width: 500px;
-        height: @uploader-height;
-        /*display: flex;*/
-        /*flex-direction: column;*/
-        margin: 50px auto 0;
-        border-radius: 6px;
-        background: #fff;
-        &-header{
-            box-sizing: border-box;
-            height: @header-height;
-            padding: 8px;
-            text-align: center;
-            border-bottom: 1px solid #eef1f3;
-        }
-        &-body {
-            /*flex: 1 0 auto;*/
-            height: @uploader-height - @header-height;
-            box-sizing: border-box;
-            padding: 14px;
-            &--drop {
-                height: 70%;
-                background: url('../images/drag-area.png');
-                background-size: cover;
-            }
-        }
-    }
+	@uploader-height: 600px;
+	@header-height: 60px;
+	.uploader {
+		width: 500px;
+		height: @uploader-height;
+		/*display: flex;*/
+		/*flex-direction: column;*/
+		margin: 50px auto 0;
+		border-radius: 6px;
+		background: #fff;
+		&-header {
+			box-sizing: border-box;
+			height: @header-height;
+			padding: 8px;
+			text-align: center;
+			border-bottom: 1px solid #eef1f3;
+		}
+		&-body {
+			/*flex: 1 0 auto;*/
+			height: @uploader-height - @header-height;
+			box-sizing: border-box;
+			padding: 14px;
+			&--drop {
+				height: 70%;
+				background: url('../images/drag-area.png');
+				background-size: cover;
+			}
+		}
+	}
 </style>

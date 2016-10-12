@@ -25,8 +25,9 @@ module.exports = {
   resolve: {
     root: path.resolve(__dirname),
     alias: {
-      // sweetalert: 'node_modules/sweetalert/lib/sweetalert.js',
-      // sweetalertcss: 'node_modules/sweetalert/dist/sweetalert.css',
+      'sweetalert': 'node_modules/sweetalert/lib/sweetalert.js',
+      'sweetalert\.css': 'node_modules/sweetalert/dist/sweetalert.css',
+      'vue$': 'vue/dist/vue.js'
     },
     extensions: ['', '.js', '.css']
   },
