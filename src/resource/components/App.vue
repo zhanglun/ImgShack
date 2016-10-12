@@ -2,7 +2,7 @@
     <div class="uploader" id="uploader">
         <div class="uploader-header" id="container">
             <h1>ImgShack, file uploader</h1>
-            <button id="browse">upload</button>
+            <button id="go">upload</button>
         </div>
         <div class="uploader-body">
             <div class="uploader-body--drop"></div>
@@ -24,8 +24,6 @@
 //上传到七牛后保存的文件名
         var param = {};
         param.scope = bucket;
-// param.callbackUrl = 'http://your.domain.com/callback';
-        param.callbackBody = 'filename=$(fname)&filesize=$(fsize)';
         let uploadToken = createToken(param);
 
         console.log(uploadToken);
