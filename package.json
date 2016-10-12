@@ -22,7 +22,6 @@
   "homepage": "https://github.com/zhanglun/ImgShack#readme",
   "dependencies": {
     "electron": "latest",
-    "gulp-copy": "0.0.2",
     "hmacsha1": "^1.0.0",
     "vue": "^2.0.1"
   },
