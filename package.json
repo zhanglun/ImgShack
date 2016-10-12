@@ -23,6 +23,7 @@
   "dependencies": {
     "base64-url": "^1.3.2",
     "electron": "latest",
+    "gulp-copy": "0.0.2",
     "hmacsha1": "^1.0.0",
     "vue": "^2.0.1"
   },
