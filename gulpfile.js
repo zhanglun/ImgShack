@@ -2,7 +2,6 @@ var path = require('path');
 var gulp = require('gulp');
 var babel = require("gulp-babel");
 var gutil = require('gulp-util');
-var gCopy = require('gulp-copy');
 var webpack = require('webpack');
 var webpackConfig = require('./webpack.config.js');
 var electron = require('electron-connect').server.create();
