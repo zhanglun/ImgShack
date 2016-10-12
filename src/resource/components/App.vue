@@ -1,5 +1,8 @@
 <template>
-	<div id="app">
+	<div class="app">
+		<head-tab></head-tab>
+		<!-- <router-link to="/settings">设置<router-link> -->
+		<router-view></router-view>
 		<div class="uploader" id="uploader">
 			<div class="uploader-header" id="container">
 				<h1>ImgShack, file uploader</h1>
@@ -10,13 +13,13 @@
 				<div class="uploader-body--drop"></div>
 			</div>
 		</div>
-        <!--<file-list></file-list>-->
 	</div>
 
 </template>
 <script>
   import { createToken } from '../util/createToken';
   import { createUploader } from '../util/createUploader';
+  import HeadTabView from './HeadTab.vue';
 
   export default {
     data() {
@@ -45,6 +48,9 @@
             console.log(up, file, info)
         });
 
+    },
+    components: {
+    	'head-tab': HeadTabView,
     }
   }
 </script>
