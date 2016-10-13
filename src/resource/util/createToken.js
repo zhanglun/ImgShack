@@ -1,5 +1,4 @@
-import Hmacsha1 from 'hmacsha1'
-import Config from '../config/config'
+import Hmacsha1 from 'hmacsha1';
 
 /**
  * 生成七牛 上传token
@@ -7,7 +6,7 @@ import Config from '../config/config'
  * @param  {Number} expires=0 有效时间
  * @returns String
  */
-export const createToken = (params, expires = 0) => {
+export const createToken = (keys, params) => {
   let flags = {
     callbackBody: undefined,
     callbackBodyType: undefined,
@@ -24,12 +23,12 @@ export const createToken = (params, expires = 0) => {
     scope: undefined
   };
   flags = Object.assign(flags, params);
-  flags['deadline'] = expires + Math.floor(Date.now() / 1000);
+  flags['deadline'] = new Date("2099/10/1")/1000;
   let encodedFlags = base64_encode(JSON.stringify(flags));
-  let encoded = Hmacsha1(Config.SECRET_KEY, encodedFlags);
+  let encoded = Hmacsha1(keys.secret_key, encodedFlags);
   // base64ToUrlSafe
   let encodedSign = encoded.replace(/\//g, '_').replace(/\+/g, '-');
-  return Config.ACCESS_KEY + ':' + encodedSign + ':' + encodedFlags;
+  return keys.access_key + ':' + encodedSign + ':' + encodedFlags;
 };
 
 function base64_encode(data) {
