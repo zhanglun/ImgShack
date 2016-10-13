@@ -10,22 +10,18 @@
 </head>
 
 <body>
-<div id="app">
-	  <h1>Hello App!</h1>
-  <p>
-    <!-- 使用 router-link 组件来导航. -->
-    <!-- 通过传入 `to` 属性指定链接. -->
-    <!-- <router-link> 默认会被渲染成一个 `<a>` 标签 -->
-    <router-link to="/foo">Go to Foo</router-link>
-    <router-link to="/bar">Go to Bar</router-link>
-  </p>
-  <!-- 路由出口 -->
-  <!-- 路由匹配到的组件将渲染在这里 -->
-  <router-view></router-view>
-</div>
+    <div id="app" class="app">
+        <div class="nav">
+            <router-link tag="div" to="/">
+                <a href="" class="nav-item__link">Upload</a>
+            </router-link>
+            <router-link tag="div" to="/settings">
+                <a href="" class="nav-item__link">Settings</a>
+            </router-link>
+        </div>
+        <router-view class="main"></router-view>
+    </div>
 </body>
 <script>
-    require('electron-connect').client.create();
+require('electron-connect').client.create();
 </script>
-
-
