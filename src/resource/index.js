@@ -15,7 +15,7 @@ Vue.config.debug = true;
 const routes = [
   { path: '/', component: IndexView,
   children: [
-    { path: '', component: UploaderView },
+    { path: 'upload', component: UploaderView },
     { path: 'settings', component: SettingsView }
   ]},
   { path: '*', redirect: '/'}

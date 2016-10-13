@@ -12,12 +12,8 @@
 <body>
     <div id="app" class="app">
         <div class="nav">
-            <router-link tag="div" to="/">
-                <a href="" class="nav-item__link">Upload</a>
-            </router-link>
-            <router-link tag="div" to="/settings">
-                <a href="" class="nav-item__link">Settings</a>
-            </router-link>
+            <router-link to="/upload" class="nav-item__link">Upload</router-link>
+            <router-link to="/settings" class="nav-item__link">Settings</router-link>
         </div>
         <router-view class="main"></router-view>
     </div>
