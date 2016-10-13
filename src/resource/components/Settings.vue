@@ -75,7 +75,6 @@
     border-radius: 4px;
     box-sizing: border-box;
     background-color: transparent;
-    font-size: 16px;
     font-weight: 500;
     padding: 7px 18px;
     border-color: #66615B;

@@ -1,8 +1,7 @@
 <template>
 	<div class="uploader">
 		<div class="uploader-body" id="uploader-body">
-        <button id="uploader-btn">上传</button>
-			<div class="uploader-body--drop" id="uploader-drop"></div>
+			<div class="uploader-body--drop" id="uploader"></div>
 		</div>
 	</div>
 </template>
@@ -48,9 +47,9 @@
         },
         initUploader(domain, token, methods) {
             let uploader = createUploader({
-                browse_button: 'uploader-btn',
+                browse_button: 'uploader',
                 container: 'uploader-body',
-                drop_element: 'uploader-drop',
+                drop_element: 'uploader',
                 domain: domain,
                 token: token,
             });
@@ -80,14 +79,15 @@
 			border-bottom: 1px solid #eef1f3;
 		}
 		&-body {
-			/*flex: 1 0 auto;*/
-			height: @uploader-height - @header-height;
+			height: 412px;
 			box-sizing: border-box;
 			padding: 14px;
 			&--drop {
 				height: 70%;
-				background: url('../images/drag-area.png');
-				background-size: cover;
+				background: url('../images/drop.png') no-repeat center;
+			    border-radius: 10px;
+                border: 4px dashed #8c99a5;
+                cursor: pointer;
 			}
 		}
 	}
