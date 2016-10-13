@@ -58,7 +58,6 @@
                 console.log('init!', arguments);
             });
             uploader.bind('FileUploaded', (up, file, info) => {
-                // methods.FileUploaded(file, info);
                 console.log(up, file, info);
                 console.log('fileLink: ', this.$data.settings.domain + '/' + JSON.parse(info.response).key);
             });
