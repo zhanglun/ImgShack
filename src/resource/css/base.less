@@ -9,12 +9,18 @@ body {
   padding: 0;
 }
 
+html {
+  font-size: 10px;
+}
+
 body {
   min-height: 100%;
   max-width: 100%;
   font-family: 'Helvetica Neue', Tahoma, Arial, 'Microsoft Yahei', '宋体', '黑体', sans-serif;
   background: #F9D589;
+  color: #66615b;
 }
+
 a {
   text-decoration: none;
 }
@@ -37,13 +43,17 @@ a {
   justify-content: center;
   background: @appBg;
   border-bottom: 1px solid #eef1f3;
-  border-radius: 6px 6px 0 0 ;
+  border-radius: 6px 6px 0 0;
   &-item__link {
     display: block;
     padding: 14px;
-    font-size: 18px;
+    font-size: 1.8rem;
+    color: #A49E93;
+    &:hover {
+      color: #66615b;
+    }
     &--active {
-
+      color: #555;
     }
   }
 }
@@ -53,6 +63,6 @@ a {
   flex: 1;
   background: @appBg;
   padding: 14px;
+  font-size: 1.4rem;
   box-sizing: border-box;
 }
-

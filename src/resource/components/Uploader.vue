@@ -1,43 +1,68 @@
 <template>
-	<div class="uploader" id="uploader">
-		<div class="uploader-body">
-			<div class="uploader-body--drop"></div>
+	<div class="uploader">
+		<div class="uploader-body" id="uploader-body">
+        <button id="uploader-btn">上传</button>
+			<div class="uploader-body--drop" id="uploader-drop"></div>
 		</div>
 	</div>
 </template>
 <script>
   import { createToken } from '../util/createToken';
   import { createUploader } from '../util/createUploader';
+  import store from '../util/store';
 
   export default {
     data() {
-      return {};
+      return {
+        uptoken: '',
+        settings: null,
+      };
     },
     mounted() {
-      console.log('!!!app');
-
-        let bucket = 'zhanglun';
-        //上传到七牛后保存的文件名
-        var param = {};
-        param.scope = bucket;
-        let uploadToken = createToken(param, 100000);
-
-        let uploader = createUploader({
-            browse_button: 'go',
-            drop_element: 'uploader',
-            container: 'container',
-            domain: 'http://7i7gl0.com1.z0.glb.clouddn.com',
-            token: uploadToken,
-        });
-        uploader.bind('PostInit', function(){
-            console.log('init!', arguments);
-        });
-        uploader.bind('FileUploaded', function(up, file, info){
-            console.log(up, file, info)
-        });
+        let settings = store.get('settings');
+        if(!settings) {
+            this.$route.go('/settings');
+        }else {
+            this.$data.settings = settings;
+            this.$data.uptoken = this.getUpToken(settings);
+            this.initUploader(settings.domain, this.$data.uptoken);
+        }
 
     },
-    components: {
+    methods: {
+        getUpToken(settings) {
+            let uptoken = store.get('uptoken');
+            if(uptoken) {
+                this.$data.uptoken = uptoken;
+                return uptoken;
+            }else {
+                let params = {
+                    scope: settings.bucket,
+                };
+                let keys = {
+                    access_key: settings.access_key,
+                    secret_key: settings.secret_key,
+                };
+                return createToken(keys, params,);
+            }
+        },
+        initUploader(domain, token, methods) {
+            let uploader = createUploader({
+                browse_button: 'uploader-btn',
+                container: 'uploader-body',
+                drop_element: 'uploader-drop',
+                domain: domain,
+                token: token,
+            });
+            uploader.bind('PostInit', function(){
+                console.log('init!', arguments);
+            });
+            uploader.bind('FileUploaded', (up, file, info) => {
+                // methods.FileUploaded(file, info);
+                console.log(up, file, info);
+                console.log('fileLink: ', this.$data.settings.domain + '/' + JSON.parse(info.response).key);
+            });
+        }
     }
   }
 </script>

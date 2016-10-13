@@ -18,7 +18,7 @@ const routes = [
     { path: 'upload', component: UploaderView },
     { path: 'settings', component: SettingsView }
   ]},
-  { path: '*', redirect: '/'}
+  { path: '*', redirect: '/upload'}
 ];
 
 

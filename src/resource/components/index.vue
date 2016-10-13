@@ -7,6 +7,7 @@
             return {}
         },
         mounted(){
+            console.log('index');
         }
     }
 </script>
