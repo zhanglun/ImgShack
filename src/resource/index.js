@@ -4,7 +4,7 @@ import VueRouter from 'vue-router';
 
 import UploaderView from './components/Uploader.vue';
 import SettingsView from './components/Settings.vue';
-import FileView from './components/FileList.vue';
+import HistoryView from './components/History.vue';
 
 Vue.use(VueRouter);
 
@@ -13,6 +13,7 @@ Vue.config.debug = true;
 
 const routes = [
   { path: '/upload', component: UploaderView },
+  { path: '/history', component: HistoryView },
   { path: '/settings', component: SettingsView },
   { path: '*', redirect: '/upload'}
 ];
