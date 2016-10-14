@@ -20,7 +20,7 @@
     mounted() {
         let settings = store.get('settings');
         if(!settings) {
-            this.$route.go('/settings');
+            this.$router.push('/settings');
         }else {
             this.$data.settings = settings;
             this.$data.uptoken = this.getUpToken(settings);
