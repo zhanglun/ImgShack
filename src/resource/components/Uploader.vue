@@ -6,7 +6,7 @@
 	</div>
 </template>
 <script>
-  import { createToken } from '../util/createToken';
+  import { createToken, createUploadLink, createThumbnailLink } from '../util/qiniuUtil';
   import { createUploader } from '../util/createUploader';
   import store from '../util/store';
 
@@ -20,7 +20,7 @@
     mounted() {
         let settings = store.get('settings');
         if(!settings) {
-            this.$route.go('/settings');
+            this.$router.push('/settings');
         }else {
             this.$data.settings = settings;
             this.$data.uptoken = this.getUpToken(settings);
@@ -56,9 +56,24 @@
             uploader.bind('PostInit', function(){
                 console.log('init!', arguments);
             });
+            uploader.bind('UploadProgress', (up, file) => {
+
+            });
             uploader.bind('FileUploaded', (up, file, info) => {
+                let key = JSON.parse(info.response).key
+                let fileLink = createUploadLink(key);
+                let thumbnail = createThumbnailLink(key);
+                let { name, size, lastModifiedDate } = file;
                 console.log(up, file, info);
-                console.log('fileLink: ', this.$data.settings.domain + '/' + JSON.parse(info.response).key);
+                var fileInfo = {
+                    originName: name,
+                    fileLink,
+                    thumbnail,
+                    uploadDate: lastModifiedDate,
+                    size: size
+                }
+                store.addFile(fileInfo);
+                console.log(fileInfo);
             });
         }
     }
