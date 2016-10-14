@@ -39,7 +39,8 @@ store.forEach = (callback) => {
 }
 
 store.addFile = (fileInfo) => {
-  let fileList = store.get(fileList, []).push(fileInfo);
+  let fileList = store.get('fileList', []);
+  fileList.push(fileInfo);
   store.set('fileList', fileList);
 }
 
