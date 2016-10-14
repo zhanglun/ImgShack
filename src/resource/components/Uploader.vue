@@ -3,6 +3,7 @@
 		<div class="uploader-body" id="uploader-body">
 			<div class="uploader-body--drop" id="uploader"></div>
 		</div>
+        <file-view v-for="file in uploadList" :file="file" :index="file.url"></file-view>
 	</div>
 </template>
 <script>
@@ -10,12 +11,19 @@
   import { createUploader } from '../util/createUploader';
   import store from '../util/store';
 
+  import FileView from './FileItem.vue';
+  import settingsView from './Settings.vue';
+
   export default {
     data() {
       return {
         uptoken: '',
         settings: null,
+        uploadList: [],
       };
+    },
+    components: {
+        FileView,
     },
     mounted() {
         let settings = store.get('settings');
@@ -61,19 +69,19 @@
             });
             uploader.bind('FileUploaded', (up, file, info) => {
                 let key = JSON.parse(info.response).key
-                let fileLink = createUploadLink(key);
+                let url = createUploadLink(key);
                 let thumbnail = createThumbnailLink(key);
                 let { name, size, lastModifiedDate } = file;
                 console.log(up, file, info);
                 var fileInfo = {
-                    originName: name,
-                    fileLink,
+                    originalName: name,
+                    url,
                     thumbnail,
-                    uploadDate: lastModifiedDate,
+                    uploadAt: lastModifiedDate,
                     size: size
                 }
                 store.addFile(fileInfo);
-                console.log(fileInfo);
+                this.$data.uploadList.unshift(fileInfo);
             });
         }
     }
