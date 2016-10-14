@@ -74,10 +74,10 @@
                 let { name, size, lastModifiedDate } = file;
                 console.log(up, file, info);
                 var fileInfo = {
-                    originalName: name,
+                    original_name: name,
                     url,
                     thumbnail,
-                    uploadAt: lastModifiedDate,
+                    upload_at: lastModifiedDate,
                     size: size
                 }
                 store.addFile(fileInfo);

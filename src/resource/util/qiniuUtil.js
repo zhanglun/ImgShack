@@ -24,7 +24,7 @@ export const createToken = (keys, params) => {
     scope: undefined
   };
   flags = Object.assign(flags, params);
-  flags['deadline'] = new Date("2099/10/1")/1000;
+  flags['deadline'] = new Date("2099/10/1") / 1000;
   let encodedFlags = base64_encode(JSON.stringify(flags));
   let encoded = Hmacsha1(keys.secret_key, encodedFlags);
   // base64ToUrlSafe
@@ -36,18 +36,17 @@ export const createToken = (keys, params) => {
  * @param {String} 文件名
  */
 export const createUploadLink = (key) => {
-    let domain = store.get('settings').domain;
-    return domain + '/' + key;
+  let domain = store.get('settings').domain;
+  return domain + '/' + key;
 };
 
 /**
  * 生成七牛 缩略图链接
  * @param {String} 文件名
  */
-export const createThumbnailLink = (key) => {
+export const createThumbnailLink = (key, w = 80, h = 80) => {
   let domain = store.get('settings').domain;
-  var maxheight = '100';
-  return domain + '/' + key + '?imageView2/2/h/' + maxheight;
+  return domain + '/' + key + '?imageView2/1/w/' + w + '/h/' + h;
 };
 
 function base64_encode(data) {
@@ -93,7 +92,7 @@ function base64_encode(data) {
   return enc;
 };
 
- function utf8_encode(argString) {
+function utf8_encode(argString) {
   if (argString === null || typeof argString === 'undefined') {
     return '';
   }

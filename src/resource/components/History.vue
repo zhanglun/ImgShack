@@ -5,6 +5,8 @@
 
 </template>
 <script>
+  import {formatFile} from '../util/formatFile';
+
   import store from '../util/store';
   import FileView from './FileItem.vue';
   export default {
@@ -21,7 +23,7 @@
     },
     methods: {
       getHistory() {
-        this.$data.fileList = store.get('fileList');
+        this.$data.fileList = formatFile(store.get('fileList'));
         console.log(store.get('fileList'));
       }
     }
