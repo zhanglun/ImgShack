@@ -1,4 +1,5 @@
 import Hmacsha1 from 'hmacsha1';
+import store from './store';
 
 /**
  * 生成七牛 上传token
@@ -29,6 +30,24 @@ export const createToken = (keys, params) => {
   // base64ToUrlSafe
   let encodedSign = encoded.replace(/\//g, '_').replace(/\+/g, '-');
   return keys.access_key + ':' + encodedSign + ':' + encodedFlags;
+};
+/**
+ * 生成七牛 下载外链
+ * @param {String} 文件名
+ */
+export const createUploadLink = (key) => {
+    let domain = store.get('settings').domain;
+    return domain + '/' + key;
+};
+
+/**
+ * 生成七牛 缩略图链接
+ * @param {String} 文件名
+ */
+export const createThumbnailLink = (key) => {
+  let domain = store.get('settings').domain;
+  var maxheight = '100';
+  return domain + '/' + key + '?imageView2/2/h/' + maxheight;
 };
 
 function base64_encode(data) {
