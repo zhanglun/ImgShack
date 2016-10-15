@@ -70,7 +70,7 @@
             uploader.bind('FileUploaded', (up, file, info) => {
                 let key = JSON.parse(info.response).key
                 let url = createUploadLink(key);
-                let thumbnail = createThumbnailLink(key);
+                let thumbnail = createThumbnailLink(key, 60, 60);
                 let { name, size, lastModifiedDate } = file;
                 console.log(up, file, info);
                 var fileInfo = {

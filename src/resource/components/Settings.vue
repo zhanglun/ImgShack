@@ -50,6 +50,9 @@
 </script>
 
 <style lang="less">
+  .settings {
+    padding: 10px;
+  }
   .form-control {
     &__label {
 

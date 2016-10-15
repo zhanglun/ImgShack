@@ -44,7 +44,7 @@ export const createUploadLink = (key) => {
  * 生成七牛 缩略图链接
  * @param {String} 文件名
  */
-export const createThumbnailLink = (key, w = 80, h = 80) => {
+export const createThumbnailLink = (key, w = 60, h = 60) => {
   let domain = store.get('settings').domain;
   return domain + '/' + key + '?imageView2/1/w/' + w + '/h/' + h;
 };
