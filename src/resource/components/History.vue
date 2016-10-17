@@ -1,5 +1,6 @@
 <template>
 	<div class="history">
+    <button @click="clearHistory">清除历史记录(开发用)</button>
 		<file-view v-for="file in fileList" :file="file" :index="file.url"></file-view>
 	</div>
 
@@ -25,6 +26,9 @@
       getHistory() {
         this.$data.fileList = formatFile(store.get('fileList'));
         console.log(store.get('fileList'));
+      },
+      clearHistory() {
+        store.clearAllFile();
       }
     }
   }
