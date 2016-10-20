@@ -2,6 +2,7 @@
 	<div class="uploader">
 		<div class="uploader-body" id="uploader-body">
 			<div class="uploader-body--drop" id="uploader"></div>
+      <button id="uploader-btn">点击上传</button>
 		</div>
     <file-view v-for="file in uploadList" :file="file" :index="file.url"></file-view>
   </div>
@@ -43,13 +44,12 @@
         let type = clipboard.items[0].type;
         if (type.match(/image/)) {
           var file = clipboard.items[0].getAsFile();
-          // file.readAsDataURL(blob);
           console.log(file);
           if (file.size === 0) {
             return;
           }
           this.uploader.addFile(file);
-        } 
+        }
       });
 
     },
@@ -72,7 +72,7 @@
       },
       initUploader(domain, token, methods) {
         let uploader = createUploader({
-          browse_button: 'uploader',
+          browse_button: 'uploader-btn',
           container: 'uploader-body',
           drop_element: 'uploader',
           domain: domain,
