@@ -14,7 +14,11 @@
         时间: {{file.upload_at}}
       </div>
     </div>
-    {{file.originalName}}
+    <div class="file-actions">
+      <span class="button button__small" @click="getUrl">外链链接</span>
+      <span class="button button__small" @click="getMdCode">md语法</span>
+      <span class="button button__small">删除记录</span>
+    </div>
   </div>
 </template>
 <script>
@@ -26,6 +30,16 @@
     },
     mounted() {
       console.log('file component init...');
+    },
+    methods: {
+      getUrl() {
+        return this.file.url;
+      },
+      getMdCode() {
+        let code = '[' + this.file.original_name + '](' + this.file.url + ')';
+        console.log(code);
+        return code;
+      }
     }
   }
 </script>
@@ -36,8 +50,13 @@
     padding: 8px;
     border-bottom: 1px solid #ddd;
     box-sizing: border-box;
+    display: flex;
     &-thumbnail {
-      float: left;
+      // float: left;
+      width: 60px;
+      height: 60px;
+      margin-right: 10px;
+
       font-size: 0;
       border: 1px solid #d3d3d3;
       &__images {
@@ -49,8 +68,12 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      margin-left: 70px;
+      // margin-left: 70px;
       font-size: 1.2rem;
+      flex:1;
+    }
+    &-actions {
+
     }
   }  
 </style>

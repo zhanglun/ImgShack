@@ -2,7 +2,9 @@
 	<div class="uploader">
 		<div class="uploader-body" id="uploader-body">
 			<div class="uploader-body--drop" id="uploader"></div>
-      <button id="uploader-btn">点击上传</button>
+      <div class="form-control">
+        <button id="uploader-btn" class="button">点击上传</button>
+      </div>
 		</div>
     <file-view v-for="file in uploadList" :file="file" :index="file.url"></file-view>
   </div>
@@ -126,9 +128,10 @@
 			&--drop {
 				height: 70%;
 				background: url('../images/drop.png') no-repeat center;
-       border-radius: 10px;
-       border: 4px dashed #8c99a5;
-       cursor: pointer;
+        border-radius: 10px;
+        border: 2px dashed #8c99a5;
+        cursor: pointer;
+        margin-bottom: 20px;
      }
    }
  }
