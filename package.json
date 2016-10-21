@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/zhanglun/ImgShack#readme",
   "dependencies": {
+    "clipboard": "^1.5.13",
     "electron": "latest",
     "hmacsha1": "^1.0.0",
     "md5": "^2.2.1",

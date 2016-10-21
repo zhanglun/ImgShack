@@ -15,14 +15,15 @@
       </div>
     </div>
     <div class="file-actions">
-      <span class="button button__small" @click="getUrl">外链链接</span>
-      <span class="button button__small" @click="getMdCode">md语法</span>
-      <span class="button button__small">删除记录</span>
+      <span class="button button__small js-getUrl" @click="getUrl"><input type="hidden" :name="file.original_name"  :value="file.url">外链链接</span>
+      <span class="button button__small js-getMdCode" @click="getMdCode"><input type="hidden" :name="file.original_name" :value="file.url">md语法</span>
+      <span class="button button__small" @click="deleteLocalHistory">删除记录</span>
     </div>
   </div>
 </template>
 <script>
-
+  import Clipboard from 'clipboard';
+  import store from '../util/store';
   export default {
     props: ['file'],
     data() {
@@ -30,15 +31,36 @@
     },
     mounted() {
       console.log('file component init...');
+      let vm = this;
+      new Clipboard('.js-getUrl', {
+        text: function(trigger) {
+          return trigger.querySelector('input').value;
+        }
+      });
+      new Clipboard('.js-getMdCode', {
+        text: function(trigger) {
+          let target = trigger.querySelector('input');
+          return '[' + target.name + '](' + target.value + ')';
+        }
+      });
+    },
+    watch: {
+      file(val, old) {
+        val.md_url ='[' + val.original_name + '](' + val.url + ')';
+        return val;
+      }
     },
     methods: {
-      getUrl() {
+      getUrl(e) {
         return this.file.url;
       },
       getMdCode() {
         let code = '[' + this.file.original_name + '](' + this.file.url + ')';
-        console.log(code);
         return code;
+      },
+      deleteLocalHistory() {
+        let list = store.get('fileList');
+        // this.file = null;
       }
     }
   }
