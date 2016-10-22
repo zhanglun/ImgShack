@@ -6,7 +6,11 @@
         <button id="uploader-btn" class="button">点击上传</button>
       </div>
 		</div>
+        <div v-for="file in uploadingMap"> 
+        {{file.name}} <progress :value="file.percent" max="100"></progress> {{file.percent}}%
+      </div>
     <file-view v-for="file in uploadList" :file="file" :index="file.url"></file-view>
+
   </div>
 </template>
 <script>
@@ -24,6 +28,7 @@
         settings: null,
         uploader: null,
         uploadList: [],
+        uploadingMap: {},
       };
     },
     components: {
@@ -40,8 +45,6 @@
       }
 
       document.querySelector('.uploader').addEventListener('paste', (e) => {
-        console.log(this.uploader);
-        console.log(e);
         let clipboard = e.clipboardData;
         let type = clipboard.items[0].type;
         if (type.match(/image/)) {
@@ -73,6 +76,7 @@
         }
       },
       initUploader(domain, token, methods) {
+        let vm = this;
         let uploader = createUploader({
           browse_button: 'uploader-btn',
           container: 'uploader-body',
@@ -80,18 +84,29 @@
           domain: domain,
           token: token,
         });
-        uploader.bind('PostInit', function(){
-          console.log('init!', arguments);
+        uploader.bind('PostInit', function(up, file) {
+        });
+        uploader.bind('FilesAdded', (up, files) => {
+          files.map((file) => {
+            var reader = new FileReader();
+            reader.onload = (e) => {
+              vm.$set(vm.$data.uploadingMap, file.id, {
+                url: e.target.result,
+                name: file.name,
+                size: file.size,
+              });
+            }
+            reader.readAsDataURL(file.getNative());
+          });
         });
         uploader.bind('UploadProgress', (up, file) => {
-
+          vm.$set(vm.uploadingMap[file.id], 'percent', file.percent);
         });
         uploader.bind('FileUploaded', (up, file, info) => {
           let key = JSON.parse(info.response).key
           let url = createUploadLink(key);
           let thumbnail = createThumbnailLink(key, 60, 60);
           let { name, size, lastModifiedDate } = file;
-          console.log(up, file, info);
           var fileInfo = {
             original_name: name,
             url,

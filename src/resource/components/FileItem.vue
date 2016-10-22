@@ -15,9 +15,9 @@
       </div>
     </div>
     <div class="file-actions">
-      <span class="button button__small js-getUrl" @click="getUrl"><input type="hidden" :name="file.original_name"  :value="file.url">外链链接</span>
-      <span class="button button__small js-getMdCode" @click="getMdCode"><input type="hidden" :name="file.original_name" :value="file.url">md语法</span>
-      <span class="button button__small" @click="deleteLocalHistory">删除记录</span>
+      <span class="button button__small js-getUrl"><input type="hidden" :name="file.original_name"  :value="file.url">外链链接</span>
+      <span class="button button__small js-getMdCode"><input type="hidden" :name="file.original_name" :value="file.url">md语法</span>
+      <!-- <span class="button button__small">删除记录</span> -->
     </div>
   </div>
 </template>
@@ -51,17 +51,6 @@
       }
     },
     methods: {
-      getUrl(e) {
-        return this.file.url;
-      },
-      getMdCode() {
-        let code = '[' + this.file.original_name + '](' + this.file.url + ')';
-        return code;
-      },
-      deleteLocalHistory() {
-        let list = store.get('fileList');
-        // this.file = null;
-      }
     }
   }
 </script>
