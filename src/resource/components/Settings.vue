@@ -53,41 +53,5 @@
   .settings {
     padding: 10px;
   }
-  .form-control {
-    &__label {
-
-    }
-    &__input {
-      width: 100%;
-    }
-  }
-  .button {
-    display: inline-block;
-    margin-bottom: 0;
-    font-size: 14px;
-    font-weight: normal;
-    line-height: 1.42857143;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    touch-action: manipulation;
-    cursor: pointer;
-    user-select: none;
-    background-image: none;
-    border: 1px solid transparent;
-    border-radius: 4px;
-    box-sizing: border-box;
-    background-color: transparent;
-    font-weight: 500;
-    padding: 7px 18px;
-    border-color: #66615B;
-    color: #66615B;
-    transition: all 150ms linear;
-    &:hover, &:focus, &:active, &.active {
-      background-color: #66615B;
-      color: rgba(255, 255, 255, 0.7);
-      border-color: #66615B;
-    }
-  }
 
 </style>

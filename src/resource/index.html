@@ -16,7 +16,9 @@
             <router-link to="/history" class="nav-item__link">History</router-link>
             <router-link to="/settings" class="nav-item__link">Settings</router-link>
         </div>
-        <router-view class="main"></router-view>
+        <keep-alive>
+            <router-view class="main"></router-view>
+        </keepalive>
     </div>
 </body>
 <script>
