@@ -6,11 +6,7 @@
         <button id="uploader-btn" class="button">点击上传</button>
       </div>
 		</div>
-        <div v-for="file in uploadingMap"> 
-        {{file.name}} <progress :value="file.percent" max="100"></progress> {{file.percent}}%
-      </div>
     <file-view v-for="file in uploadList" :file="file" :index="file.url"></file-view>
-
   </div>
 </template>
 <script>
@@ -21,6 +17,14 @@
   import FileView from './FileItem.vue';
   import settingsView from './Settings.vue';
 
+  function setFile(fileList, id, key, val) {
+    fileList.forEach(fileItem => {
+      if (fileItem.id === id) {
+        fileItem[key] = val;
+      }
+    })
+  }
+
   export default {
     data() {
       return {
@@ -28,7 +32,6 @@
         settings: null,
         uploader: null,
         uploadList: [],
-        uploadingMap: {},
       };
     },
     components: {
@@ -90,17 +93,26 @@
           files.map((file) => {
             var reader = new FileReader();
             reader.onload = (e) => {
-              vm.$set(vm.$data.uploadingMap, file.id, {
-                url: e.target.result,
-                name: file.name,
-                size: file.size,
-              });
+              let thumbnail = e.target.result;
+              setFile(vm.uploadList, file.id, 'thumbnail', thumbnail);
             }
             reader.readAsDataURL(file.getNative());
+
+            let { name, size, lastModifiedDate, percent, id } = file;
+            var fileInfo = {
+              original_name: name,
+              upload_at: lastModifiedDate,
+              size: size,
+              percent,
+              id,
+              thumbnail: '',
+              url: ''
+            }
+            this.$data.uploadList.unshift(fileInfo);
           });
         });
         uploader.bind('UploadProgress', (up, file) => {
-          vm.$set(vm.uploadingMap[file.id], 'percent', file.percent);
+          setFile(vm.uploadList, file.id, 'percent', file.percent);
         });
         uploader.bind('FileUploaded', (up, file, info) => {
           let key = JSON.parse(info.response).key
@@ -115,7 +127,8 @@
             size: size
           }
           store.addFile(fileInfo);
-          this.$data.uploadList.unshift(fileInfo);
+          setFile(vm.uploadList, file.id, 'url', url);
+          setFile(vm.uploadList, file.id, 'thumbnail', thumbnail);
         });
         this.uploader = uploader;
       }
