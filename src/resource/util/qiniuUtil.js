@@ -46,7 +46,7 @@ export const createUploadLink = (key) => {
  */
 export const createThumbnailLink = (key, w = 60, h = 60) => {
   let domain = store.get('settings').domain;
-  return domain + '/' + key + '?imageView2/1/w/' + w + '/h/' + h;
+  return 'http://www.' + domain + '/' + key + '?imageView2/1/w/' + w + '/h/' + h;
 };
 
 function base64_encode(data) {

@@ -44,4 +44,8 @@ store.addFile = (fileInfo) => {
   store.set('fileList', fileList);
 }
 
+store.clearAllFile = () => {
+  store.set('fileList', []);
+}
+
 export default store;
