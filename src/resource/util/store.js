@@ -25,18 +25,18 @@ store.get = (key, defaultVal) => {
 
 store.remove = (key) => {
   storage.removeItem(key);
-}
+};
 
 store.clear = () => {
   storage.clear();
-}
+};
 
 store.forEach = (callback) => {
   for (let i = 0; i < storage.length; i++) {
-    let key = storage.key(i)
-    callback(key, store.get(key))
+    let key = storage.key(i);
+    callback(key, store.get(key));
   }
-}
+};
 
 store.addFile = (fileInfo) => {
   let fileList = store.get('fileList', []);

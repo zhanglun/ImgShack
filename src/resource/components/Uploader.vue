@@ -3,7 +3,7 @@
 		<div class="uploader-body" id="uploader-body">
 			<div class="uploader-body--drop" id="uploader"></div>
       <div class="form-control">
-        <button id="uploader-btn" class="button">点击上传</button>
+        <button id="uploader-btn" class="button">选择文件</button>
       </div>
 		</div>
     <file-view v-for="file in uploadList" :file="file" :index="file.url"></file-view>
@@ -47,12 +47,12 @@
         this.initUploader(settings.domain, this.$data.uptoken);
       }
 
+      // 粘贴剪切板图片
       document.querySelector('.uploader').addEventListener('paste', (e) => {
         let clipboard = e.clipboardData;
         let type = clipboard.items[0].type;
         if (type.match(/image/)) {
           var file = clipboard.items[0].getAsFile();
-          console.log(file);
           if (file.size === 0) {
             return;
           }
@@ -101,12 +101,13 @@
             let { name, size, lastModifiedDate, percent, id } = file;
             var fileInfo = {
               original_name: name,
-              upload_at: lastModifiedDate,
-              size: size,
+              // upload_at: lastModifiedDate,
+              // size: size,
               percent,
               id,
               thumbnail: '',
-              url: ''
+              url: '',
+              uploading: true,
             }
             this.$data.uploadList.unshift(fileInfo);
           });
@@ -124,7 +125,8 @@
             url,
             thumbnail,
             upload_at: lastModifiedDate,
-            size: size
+            size: size,
+            uploading: false,
           }
           store.addFile(fileInfo);
           setFile(vm.uploadList, file.id, 'url', url);
@@ -139,7 +141,7 @@
 	@uploader-height: 600px;
 	@header-height: 60px;
 	.uploader {
-		height: @uploader-height;
+		// height: @uploader-height;
 		margin: 0 auto 0;
 		background: #fff;
 		&-header {
