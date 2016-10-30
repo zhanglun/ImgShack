@@ -7,10 +7,6 @@
       <div class="file-name">
         {{file.original_name}}
       </div>
-
-<!--       <div class="file-metadata" v-if="file.size">
-        {{file.size}}
-      </div> -->
       <div class="file-metadata" v-if="file.upload_at">
         {{file.upload_at}}
       </div>
@@ -47,13 +43,13 @@
       new Clipboard('.js-getMdCode', {
         text: function(trigger) {
           let target = trigger.querySelector('input');
-          return '[' + target.name + '](' + target.value + ')';
+          return '![' + target.name + '](' + target.value + ')';
         }
       });
     },
     watch: {
       file(val, old) {
-        val.md_url ='[' + val.original_name + '](' + val.url + ')';
+        val.md_url ='![' + val.original_name + '](' + val.url + ')';
         val.upload_at = new timeago().format(old.upload_at);
         return val;
       }
