@@ -28,6 +28,12 @@
   db = store.open('settings');
   db.files.loadDatabase();
 
+  function saveFile(file) {
+    db.files.update({id: file.id}, {$set: file}, { upsert: true }, (err, result) => {
+      console.log(arguments);
+      console.log('保存成功！');
+    })
+  }
   export default {
     data() {
       return {
@@ -131,7 +137,8 @@
             size: size,
             uploading: false,
           }
-          store.addFile(fileInfo);
+          // store.addFile(fileInfo);
+          saveFile(fileInfo);
           setFile(vm.uploadList, file.id, 'url', url);
           setFile(vm.uploadList, file.id, 'thumbnail', thumbnail);
         });

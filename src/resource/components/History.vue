@@ -10,6 +10,9 @@
 
   import store from '../util/store';
   import FileView from './FileItem.vue';
+  let db = store.open('files');
+  db.files.loadDatabase();
+
   export default {
     data() {
       return {
@@ -24,8 +27,11 @@
     },
     methods: {
       getHistory() {
-        this.$data.fileList = formatFile(store.get('fileList'));
-        console.log(store.get('fileList'));
+        db.files.find({}, (err, files) => {
+          this.$data.fileList = formatFile(files);
+        })
+        // this.$data.fileList = formatFile(store.get('fileList'));
+        // console.log(store.get('fileList'));
       },
       clearHistory() {
         store.clearAllFile();
