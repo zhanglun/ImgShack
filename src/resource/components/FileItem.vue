@@ -33,7 +33,6 @@
       return {};
     },
     mounted() {
-      console.log('file component init...');
       let vm = this;
       new Clipboard('.js-getUrl', {
         text: function(trigger) {
@@ -112,9 +111,6 @@
         background-size: 600px 100%;
         border-radius: 8px;
         &:after {
-          // content: attr(data-percent);
-          // float: right;
-          // color: #fff;
         }
       }
     }

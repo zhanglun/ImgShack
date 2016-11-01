@@ -5,7 +5,7 @@
       <div class="form-control">
         <button id="uploader-btn" class="button">选择文件</button>
       </div>
-		</div>
+    </div>
     <file-view v-for="file in uploadList" :file="file" :index="file.url"></file-view>
   </div>
 </template>
@@ -13,7 +13,6 @@
   import { createToken, createUploadLink, createThumbnailLink } from '../util/qiniuUtil';
   import { createUploader } from '../util/createUploader';
   import store from '../util/store';
-
   import FileView from './FileItem.vue';
   import settingsView from './Settings.vue';
 
@@ -24,6 +23,10 @@
       }
     })
   }
+
+  let db = store.open('files');
+  db = store.open('settings');
+  db.files.loadDatabase();
 
   export default {
     data() {
@@ -162,7 +165,7 @@
         border: 2px dashed #8c99a5;
         cursor: pointer;
         margin-bottom: 20px;
-     }
-   }
- }
+      }
+    }
+  }
 </style>

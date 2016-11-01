@@ -1,9 +1,13 @@
-let store = {};
+import Nedb from 'nedb/browser-version/out/nedb.min';
+
+const store = {};
+store.db = {};
+
 let storage = window.localStorage;
 
 store.serialize = (value) => JSON.stringify(value);
 
-store.deserialize = (value) =>  {
+store.deserialize = (value) => {
   if (typeof value != 'string') {
     return undefined;
   }
@@ -42,10 +46,27 @@ store.addFile = (fileInfo) => {
   let fileList = store.get('fileList', []);
   fileList.push(fileInfo);
   store.set('fileList', fileList);
-}
+};
 
 store.clearAllFile = () => {
   store.set('fileList', []);
-}
+};
+
+let removeAll = function(database) {
+  database.remove({}, { multi: true }, function(err, numRemoved) {
+    console.log(numRemoved);
+  });
+};
+
+store.open = (database) => {
+  let db = store.db;
+  db[database] = new Nedb(database);
+  return store.db;
+};
+
+store.drop = (database) => {
+  let db = store.db;
+  db[database] ? removeAll(db[database]) : null;
+};
 
 export default store;
