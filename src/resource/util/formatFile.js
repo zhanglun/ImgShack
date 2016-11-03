@@ -1,3 +1,5 @@
+import moment from 'moment';
+window.moment = moment;
 /**
  * 格式化文件大小
  * @param bytes
@@ -5,23 +7,24 @@
  */
 function formatFileSize(bytes) {
   if (bytes < 1024) {
-    return bytes + " Bytes";
+    return bytes + ' Bytes';
   } else if (bytes < 1048576) {
-    return (bytes / 1024).toFixed(3) + " KB";
+    return (bytes / 1024).toFixed(3) + ' KB';
   } else if (bytes < 1073741824) {
-    return (bytes / 1048576).toFixed(3) + " MB";
+    return (bytes / 1048576).toFixed(3) + ' MB';
   } else {
-    return (bytes / 1073741824).toFixed(3) + " GB";
+    return (bytes / 1073741824).toFixed(3) + ' GB';
   }
 }
 
 export const formatFile = (files) => {
-  if(!files) {
+  if (!files) {
     return false;
   }
   let list = [].concat(files);
   return list.map((file) => {
     file.size = formatFileSize(file.size);
+    file.upload_at = moment(file.upload_at).format('YYYY-MM-DD HH:mm:ss');
     return file;
   });
 };

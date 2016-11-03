@@ -1,17 +1,20 @@
 <template>
-	<div class="uploader">
+	<div class="uploader"  id="uploader">
 		<div class="uploader-body" id="uploader-body">
-			<div class="uploader-body--drop" id="uploader"></div>
-      <div class="form-control">
-        <button id="uploader-btn" class="button">选择文件</button>
+			<div class="uploader-body--drop"></div>
+      <div class="form-control form-control--center">
+        <button id="uploader-btn" class="button button--success">选择文件</button>
+        <button class="button" @click="clean">清除本地记录</button>
       </div>
     </div>
     <file-view v-for="file in uploadList" :file="file" :index="file.url"></file-view>
+    <file-view v-for="file in history" :file="file" :index="file.url"></file-view>
   </div>
 </template>
 <script>
   import { createToken, createUploadLink, createThumbnailLink } from '../util/qiniuUtil';
   import { createUploader } from '../util/createUploader';
+  import {formatFile} from '../util/formatFile';
   import store from '../util/store';
   import FileView from './FileItem.vue';
   import settingsView from './Settings.vue';
@@ -41,6 +44,7 @@
         settings: null,
         uploader: null,
         uploadList: [],
+        history: [],
       };
     },
     components: {
@@ -55,6 +59,8 @@
         this.$data.uptoken = this.getUpToken(settings);
         this.initUploader(settings.domain, this.$data.uptoken);
       }
+
+      this.getHistory();
 
       // 粘贴剪切板图片
       document.querySelector('.uploader').addEventListener('paste', (e) => {
@@ -71,6 +77,11 @@
 
     },
     methods: {
+      clean() {
+        db.files.remove({}, {multi: true}, () => {
+          console.log(arguments);
+        });
+      },
       getUpToken(settings) {
         let uptoken = store.get('uptoken');
         if(uptoken) {
@@ -86,6 +97,11 @@
           };
           return createToken(keys, params,);
         }
+      },
+      getHistory() {
+        db.files.find({}, (err, files) => {
+          this.$data.history = formatFile(files);
+        });
       },
       initUploader(domain, token, methods) {
         let vm = this;
@@ -106,12 +122,13 @@
               setFile(vm.uploadList, file.id, 'thumbnail', thumbnail);
             }
             reader.readAsDataURL(file.getNative());
+            file.upload_at = new Date();
 
-            let { name, size, lastModifiedDate, percent, id } = file;
-            var fileInfo = {
+            let { name, size, upload_at, percent, id } = file;
+            let fileInfo = {
               original_name: name,
-              // upload_at: lastModifiedDate,
-              // size: size,
+              upload_at,
+              size,
               percent,
               id,
               thumbnail: '',
@@ -128,18 +145,19 @@
           let key = JSON.parse(info.response).key
           let url = createUploadLink(key);
           let thumbnail = createThumbnailLink(key, 60, 60);
-          let { name, size, lastModifiedDate } = file;
+          let { name, size, upload_at } = file;
           var fileInfo = {
             original_name: name,
             url,
             thumbnail,
-            upload_at: lastModifiedDate,
+            upload_at: upload_at,
             size: size,
             uploading: false,
           }
-          // store.addFile(fileInfo);
+
           saveFile(fileInfo);
           setFile(vm.uploadList, file.id, 'url', url);
+          setFile(vm.uploadList, file.id, 'upload_at', moment(file.upload_at).format('YYYY-MM-DD HH:mm:ss'));
           setFile(vm.uploadList, file.id, 'thumbnail', thumbnail);
         });
         this.uploader = uploader;
@@ -151,9 +169,7 @@
 	@uploader-height: 600px;
 	@header-height: 60px;
 	.uploader {
-		// height: @uploader-height;
 		margin: 0 auto 0;
-		background: #fff;
 		&-header {
 			box-sizing: border-box;
 			height: @header-height;
@@ -162,12 +178,12 @@
 			border-bottom: 1px solid #eef1f3;
 		}
 		&-body {
-			height: 412px;
 			box-sizing: border-box;
-			padding: 14px;
 			&--drop {
-				height: 70%;
-				background: url('../images/drop.png') no-repeat center;
+        width: 200px;
+				height: 200px;
+        background: #f4f4f4;
+        margin: 14px auto 0;
         border-radius: 10px;
         border: 2px dashed #8c99a5;
         cursor: pointer;

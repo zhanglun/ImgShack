@@ -17,7 +17,6 @@ body {
   min-height: 100%;
   max-width: 100%;
   font-family: 'Helvetica Neue', Tahoma, Arial, 'Microsoft Yahei', '宋体', '黑体', sans-serif;
-  background: #F9D589;
   color: #66615b;
 }
 
@@ -29,24 +28,28 @@ a {
 .app {
   width: 440px;
   min-height: 100%;
-  padding: 14px;
+  // padding: 14px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  &.droped {
+    opacity: 0.4;
+  }
 }
 
 .nav {
-  height: 50px;
-  min-height: 50px;
+  height: 46px;
+  min-height: 46px;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  background: @appBg;
+  align-items: center;
+  background: #fff;
   border-bottom: 1px solid #eef1f3;
   border-radius: 6px 6px 0 0;
   &-item__link {
     display: block;
-    padding: 14px;
+    padding: 10px;
     font-size: 1.8rem;
     color: #A49E93;
     &:hover {
@@ -101,10 +104,25 @@ a {
     color: rgba(255, 255, 255, 0.7);
     border-color: #66615B;
   }
+  &&--success {
+    color: #7ac29a;
+    border-color: #7ac29a;
+    &:hover,
+    &:focus,
+    &:active,
+    &.active {
+      background: #5cb85c;
+      color: rgba(255, 255, 255, 0.7);
+      border-color: #4cae4c;
+    }
+  }
 }
 
 .form-control {
   margin-bottom: 10px;
+  &.form-control--center {
+    text-align: center;
+  }
   &__label {
     display: block;
     font-size: 1.6rem;

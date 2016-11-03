@@ -24,7 +24,7 @@
   </div>
 </template>
 <script>
-  import timeago from 'timeago.js';
+  // import timeago from 'timeago.js';
   import Clipboard from 'clipboard';
   import store from '../util/store';
   export default {
@@ -49,7 +49,7 @@
     watch: {
       file(val, old) {
         val.md_url ='![' + val.original_name + '](' + val.url + ')';
-        val.upload_at = new timeago().format(old.upload_at);
+        // val.upload_at = new timeago().format(old.upload_at);
         return val;
       }
     },
@@ -105,10 +105,7 @@
       &__progressbar {
         height: 100%;
         display: block;
-        background: green;
-        background-color: #14c3a2;
-        background-image: repeating-linear-gradient(-45deg, #14c3a2, #14c3a2 30px, #22e8c3 30px, #22e8c3 60px);
-        background-size: 600px 100%;
+        background-color: #25dcba;
         border-radius: 8px;
         &:after {
         }

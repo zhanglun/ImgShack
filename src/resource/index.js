@@ -5,7 +5,6 @@ import Vuex from 'vuex';
 
 import UploaderView from './components/Uploader.vue';
 import SettingsView from './components/Settings.vue';
-import HistoryView from './components/History.vue';
 
 Vue.use(VueRouter);
 Vue.use(Vuex);
@@ -15,7 +14,6 @@ Vue.config.debug = true;
 
 const routes = [
   { path: '/upload', component: UploaderView },
-  { path: '/history', component: HistoryView },
   { path: '/settings', component: SettingsView },
   { path: '*', redirect: '/upload' }
 ];
@@ -32,7 +30,7 @@ const store = new Vuex.Store({
   },
   mutations: {
     increment(state) {
-      state.count++
+      state.count++;
     }
   }
 });
@@ -42,7 +40,7 @@ store.commit('increment');
 
 console.log(store.state.count); // -> 1
 
-const app = new Vue({
+new Vue({
   router,
   store
 }).$mount('#app');
