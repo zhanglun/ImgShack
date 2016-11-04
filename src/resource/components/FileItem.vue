@@ -3,6 +3,11 @@
     <div class="file-thumbnail">
       <img :src="file.thumbnail" alt="" class="file-thumbnail__images">
     </div>
+    <div class="file-state" v-if="file.uploading">
+      <div class="file-state__progressbox" :style="{'height': (100-file.percent) + '%'}" :data-percent="file.percent">
+        {{file.percent}}%
+      </div>
+    </div>
     <div class="file-info">
       <div class="file-name">
         <div>
@@ -16,11 +21,6 @@
       </div>
     </div>
 
-    <div class="file-state" v-if="file.uploading">
-      <div class="file-state__progressbox">
-        <span class="file-state__progressbar" :style="{'width': file.percent + '%'}" :data-percent="file.percent"></span>
-      </div>
-    </div>
   </div>
 </template>
 <script>
@@ -104,18 +104,15 @@
     }
     &-state {
       width: 100%;
+      height: 100%;
+      position: absolute;
       &__progressbox {
         width: 100%;
-        height: 5px;
-        margin-top: 3px;
-      }
-      &__progressbar {
         height: 100%;
-        display: block;
-        background-color: #25dcba;
-        border-radius: 8px;
-        &:after {
-        }
+        background: rgba(0,0,0,0.6);
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
       }
     }
     &-actions {
