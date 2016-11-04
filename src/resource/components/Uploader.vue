@@ -102,7 +102,7 @@
         }
       },
       getHistory() {
-        db.files.find({}, (err, files) => {
+        db.files.find({}).sort({upload_at:-1}).exec((err, files) => {
           this.$data.history = formatFile(files);
         });
       },
