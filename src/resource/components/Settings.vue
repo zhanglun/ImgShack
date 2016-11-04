@@ -42,7 +42,10 @@
     methods: {
       saveConfig() {
         let settings = this.$data.settings;
-        console.log(settings);
+        settings.access_key = settings.access_key.trim();
+        settings.secret_key = settings.secret_key.trim();
+        settings.bucket = settings.bucket.trim();
+        settings.domain = settings.domain.trim();
         store.set('settings', settings);
       }
     }
