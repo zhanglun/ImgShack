@@ -5,17 +5,17 @@
     </div>
     <div class="file-info">
       <div class="file-name">
-        {{file.original_name}}
+        <div>
+          {{file.original_name}}
+        </div>
+        <span class="button button__small js-getUrl" v-if="file.url"><input type="hidden" :name="file.original_name"  :value="file.url">外链链接</span>
+        <span class="button button__small js-getMdCode" v-if="file.url"><input type="hidden" :name="file.original_name" :value="file.url">md语法</span>
       </div>
       <div class="file-metadata" v-if="file.upload_at">
         {{file.upload_at}}
       </div>
     </div>
 
-    <div class="file-actions">
-      <span class="button button__small js-getUrl" v-if="file.url"><input type="hidden" :name="file.original_name"  :value="file.url">外链链接</span>
-      <span class="button button__small js-getMdCode" v-if="file.url"><input type="hidden" :name="file.original_name" :value="file.url">md语法</span>
-    </div>
     <div class="file-state" v-if="file.uploading">
       <div class="file-state__progressbox">
         <span class="file-state__progressbar" :style="{'width': file.percent + '%'}" :data-percent="file.percent"></span>
@@ -59,24 +59,26 @@
 </script>
 <style lang="less">
   .file {
-    height: 70px;
+    width: 160px;
+    height: 160px;
     overflow: hidden;
-    padding: 8px;
-    border-bottom: 1px solid #ddd;
     box-sizing: border-box;
+    margin: 2px;
     display: flex;
     flex-wrap: wrap;
+    position: relative;
+    overflow: hidden;
+    &:hover {
+      .file-info {
+        top:0;
+      }
+    }
     &-thumbnail {
-      width: 50px;
-      height: 50px;
-      margin-right: 10px;
+      width: 100%;
+      height: 100%;
       font-size: 0;
-      border: 1px solid #d3d3d3;
       background: url('../images/loading.svg') no-repeat center center ;
       &__images {
-        float: left;
-        width: 50px;
-        height: 50px;
       }
     }
     &-name {
@@ -87,13 +89,18 @@
       white-space: nowrap;
     }
     &-info{
+      width: 100%;
       height: 100%;
-      max-width: 260px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       font-size: 1.2rem;
-      flex:1;
+      flex: 1;
+      color: #fff;
+      position: absolute;
+      top: 200px;
+      background: rgba(0,0,0,0.6);
+      transition: all 0.3s ease-in-out 0s;
     }
     &-state {
       width: 100%;

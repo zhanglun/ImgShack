@@ -1,5 +1,6 @@
 import moment from 'moment';
-window.moment = moment;
+import { createThumbnailLink } from './qiniuUtil';
+
 /**
  * 格式化文件大小
  * @param bytes
@@ -25,6 +26,7 @@ export const formatFile = (files) => {
   return list.map((file) => {
     file.size = formatFileSize(file.size);
     file.upload_at = moment(file.upload_at).format('YYYY-MM-DD HH:mm:ss');
+    file.thumbnail = createThumbnailLink(file.url, 160, 160);
     return file;
   });
 };

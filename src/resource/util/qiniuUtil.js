@@ -31,6 +31,7 @@ export const createToken = (keys, params) => {
   let encodedSign = encoded.replace(/\//g, '_').replace(/\+/g, '-');
   return keys.access_key + ':' + encodedSign + ':' + encodedFlags;
 };
+
 /**
  * 生成七牛 下载外链
  * @param {String} 文件名
@@ -45,9 +46,13 @@ export const createUploadLink = (key) => {
  * @param {String} 文件名
  */
 export const createThumbnailLink = (key, w = 60, h = 60) => {
-  let domain = store.get('settings').domain;
-  return domain + '/' + key + '?imageView2/1/w/' + w + '/h/' + h;
+  if (key.indexOf('http') == 0) {
+    return key + '?imageView2/1/w/' + w + '/h/' + h;
+  } else {
+    return createUploadLink(key) + '?imageView2/1/w/' + w + '/h/' + h;
+  }
 };
+
 
 function base64_encode(data) {
   var b64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
@@ -145,4 +150,3 @@ function utf8_encode(argString) {
 
   return utftext;
 };
-

@@ -7,11 +7,14 @@
         <button class="button" @click="clean">清除本地记录</button>
       </div>
     </div>
-    <file-view v-for="file in uploadList" :file="file" :index="file.url"></file-view>
-    <file-view v-for="file in history" :file="file" :index="file.url"></file-view>
+    <div class="filelist">
+      <file-view v-for="file in uploadList" :file="file" :index="file.url"></file-view>
+      <file-view v-for="file in history" :file="file" :index="file.url"></file-view>
+    </div>
   </div>
 </template>
 <script>
+  import moment from 'moment';
   import { createToken, createUploadLink, createThumbnailLink } from '../util/qiniuUtil';
   import { createUploader } from '../util/createUploader';
   import {formatFile} from '../util/formatFile';
@@ -144,7 +147,7 @@
         uploader.bind('FileUploaded', (up, file, info) => {
           let key = JSON.parse(info.response).key
           let url = createUploadLink(key);
-          let thumbnail = createThumbnailLink(key, 60, 60);
+          let thumbnail = createThumbnailLink(key, 160, 160);
           let { name, size, upload_at } = file;
           var fileInfo = {
             original_name: name,
@@ -181,7 +184,7 @@
 			box-sizing: border-box;
 			&--drop {
         width: 200px;
-				height: 200px;
+        height: 200px;
         background: #f4f4f4;
         margin: 14px auto 0;
         border-radius: 10px;
@@ -190,5 +193,11 @@
         margin-bottom: 20px;
       }
     }
+  }
+  .filelist {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 2px;
+    width: 330px;
   }
 </style>

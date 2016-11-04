@@ -1,4 +1,5 @@
 import md5 from 'md5';
+
 /**
  * 初始化上传组件
  * @param  {Object} opt
@@ -68,5 +69,4 @@ export const createUploader = (opt) => {
       },
     },
   });
-
 };
