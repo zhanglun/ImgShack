@@ -77,7 +77,6 @@
       width: 100%;
       height: 100%;
       font-size: 0;
-      background: url('../images/loading.svg') no-repeat center center ;
       &__images {
       }
     }

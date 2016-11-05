@@ -104,15 +104,15 @@ a {
     border-color: #66615B;
   }
   &&--success {
-    color: #7ac29a;
-    border-color: #7ac29a;
+    color: #4996f3;
+    border-color: #3483e2;
     &:hover,
     &:focus,
     &:active,
     &.active {
-      background: #5cb85c;
+      background: #157EFB;
       color: rgba(255, 255, 255, 0.7);
-      border-color: #4cae4c;
+      border-color: #157EFB;
     }
   }
 }
@@ -136,4 +136,17 @@ a {
     border-radius: 4px;
     outline: none;
   }
+}
+
+body::-webkit-scrollbar {
+    width: 0.4em;
+}
+ 
+body::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+ 
+body::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  // outline: 1px solid slategrey;
 }

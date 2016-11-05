@@ -1,6 +1,6 @@
 <template>
-	<div class="uploader"  id="uploader">
-		<div class="uploader-body" id="uploader-body">
+	<div class="uploader" id="uploader">
+		<div class="uploader-body">
 			<div class="uploader-body--drop"></div>
       <div class="form-control form-control--center">
         <button id="uploader-btn" class="button button--success">选择文件</button>
@@ -110,7 +110,7 @@
         let vm = this;
         let uploader = createUploader({
           browse_button: 'uploader-btn',
-          container: 'uploader-body',
+          container: 'uploader',
           drop_element: 'uploader',
           domain: domain,
           token: token,
@@ -183,12 +183,13 @@
 		&-body {
 			box-sizing: border-box;
 			&--drop {
-        width: 200px;
-        height: 200px;
-        background: #f4f4f4;
+        width: 260px;
+        height: 130px;
+        background: #f4f4f4 url('../images/upload.png') no-repeat center center;
+        background-size: 39% 50%;
         margin: 14px auto 0;
         border-radius: 10px;
-        border: 2px dashed #8c99a5;
+        border: 1px dashed #d7d7d7;
         cursor: pointer;
         margin-bottom: 20px;
       }

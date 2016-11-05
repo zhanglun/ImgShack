@@ -12,9 +12,12 @@ let mainWindow;
 function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 334,
+    title: 'ImgShack',
+    width: 337,
     height: 700,
     // frame: false,
+    maximizable: false,
+    resizable: false,
   });
 
   // Menu.setApplicationMenu(customMenu);

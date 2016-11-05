@@ -4,6 +4,8 @@ var babel = require("gulp-babel");
 var gutil = require('gulp-util');
 var webpack = require('webpack');
 var webpackConfig = require('./webpack.config.js');
+var webpackDevConfig = require('./webpack.config.dev.js');
+var webpackBuildConfig = require('./webpack.config.build.js');
 var electron = require('electron-connect').server.create();
 
 var ROOT_PATH = path.resolve(__dirname);
@@ -16,24 +18,35 @@ var RESOURCE_BUILD_PATH = path.resolve(BUILD_PATH, 'resource');
 
 
 // 开发
-var webpackConfigDev = Object.create(webpackConfig);
-webpackConfigDev.devtool = 'eval-source-map';
-webpackConfigDev.debug = true;
+var webpackConfigDev = Object.create(webpackDevConfig);
 
 var devCompiler = webpack(webpackConfigDev);
 
 // renderer process 的 webpack 编译
-gulp.task('webpack:build-dev', function () {
+gulp.task('webpack:dev', function () {
   console.log('------> webpack dev');
   devCompiler.run(function (err, status) {
     if (err) {
-      throw new gutil.PluginError('webpack:build-dev', err);
+      throw new gutil.PluginError('webpack:dev', err);
     }
-    gutil.log('[webpack:build-dev]', status.toString({
+    gutil.log('[webpack:dev]', status.toString({
       colors: true
     }));
   });
 });
+
+gulp.task('webpack:build', function () {
+  console.log('webpack: building');
+  devCompiler.run(function (err, status) {
+    if (err) {
+      throw new gutil.PluginError('webpack:dev', err);
+    }
+    gutil.log('[webpack:dev]', status.toString({
+      colors: true
+    }));
+  });
+});
+
 
 // bin process 的编译
 gulp.task('babel:electron-main', function () {
@@ -45,7 +58,7 @@ gulp.task('babel:electron-main', function () {
 });
 
 
-gulp.task('watch', ['babel:electron-main', 'webpack:build-dev'], function () {
+gulp.task('watch', ['babel:electron-main', 'webpack:dev'], function () {
 
   electron.start();
   gulp.watch([BUILD_PATH + '/{bin, common, config}/**/*.js'], electron.restart);
@@ -53,7 +66,7 @@ gulp.task('watch', ['babel:electron-main', 'webpack:build-dev'], function () {
 });
 
 gulp.task('watch:build', function () {
-  gulp.watch([RESOURCE_SRC_PATH + '/**/*.{html,js,less,css,vue}'], ['webpack:build-dev']);
+  gulp.watch([RESOURCE_SRC_PATH + '/**/*.{html,js,less,css,vue}'], ['webpack:dev']);
   gulp.watch([SRC_PATH + '/bin/**/*.js', SRC_PATH + '/{common, config}/**/*.js'], ['babel:electron-main']);
 });
 
