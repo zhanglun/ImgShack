@@ -7,9 +7,13 @@
   },
   "main": "./build/bin/main.js",
   "scripts": {
-    "start": "electron ./build/app/main.js --debug",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "electron ./build/bin/main.js --debug",
+    "build:all": "electron-packager . --all --overwrite --version=0.37.8",
+    "build:mac": "electron-packager . ImgShack --platform=darwin --arch=x64 --overwrite --out ./dist --version=0.37.8 --no-prune --ignore='node_modules|src|dist|test'",
+    "build:win64": "electron-packager ./ ImgShack --platform=win32 --arch=x64 --icon=./assets/img/ImgShack.png --overwrite --out ./dist --version=0.37.8",
+    "build:win32": "electron-packager ./ ImgShack --platform=win32 --arch=ia32 --icon=./assets/img/ImgShack.png --overwrite --out ./dist --version=0.37.8 --app-version=1.0.0"
   },
+  "test": "echo \"Error: no test specified\" && exit 1",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zhanglun/ImgShack.git"

@@ -9,7 +9,7 @@ var electron = require('electron-connect').server.create();
 var ROOT_PATH = path.resolve(__dirname);
 var SRC_PATH = path.resolve(ROOT_PATH, 'src');
 var BUILD_PATH = path.resolve(ROOT_PATH, 'build');
-console.log(SRC_PATH);
+
 // 前端代码
 var RESOURCE_SRC_PATH = path.resolve(SRC_PATH, 'resource');
 var RESOURCE_BUILD_PATH = path.resolve(BUILD_PATH, 'resource');
