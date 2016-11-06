@@ -17,15 +17,12 @@ var RESOURCE_SRC_PATH = path.resolve(SRC_PATH, 'resource');
 var RESOURCE_BUILD_PATH = path.resolve(BUILD_PATH, 'resource');
 
 
-// 开发
-var webpackConfigDev = Object.create(webpackDevConfig);
+gulp.task('webpack:dev', function() {
+  console.log('webpack: dev');
 
-var devCompiler = webpack(webpackConfigDev);
+  var webpackConfigDev = Object.create(webpackDevConfig);
 
-// renderer process 的 webpack 编译
-gulp.task('webpack:dev', function () {
-  console.log('------> webpack dev');
-  devCompiler.run(function (err, status) {
+  webpack(webpackConfigDev, function(err, status) {
     if (err) {
       throw new gutil.PluginError('webpack:dev', err);
     }
@@ -33,23 +30,28 @@ gulp.task('webpack:dev', function () {
       colors: true
     }));
   });
+
 });
 
-gulp.task('webpack:build', function () {
+gulp.task('webpack:build', ['babel:electron'], function(callback) {
   console.log('webpack: building');
-  devCompiler.run(function (err, status) {
+
+  var webpackConfigBuild = Object.create(webpackBuildConfig);
+  webpack(webpackConfigBuild, function(err, stats) {
     if (err) {
-      throw new gutil.PluginError('webpack:dev', err);
+      throw new gutil.PluginError("webpack:build", err);
     }
-    gutil.log('[webpack:dev]', status.toString({
+    gutil.log("[webpack:build]", stats.toString({
       colors: true
     }));
+    callback();
   });
+
 });
 
 
 // bin process 的编译
-gulp.task('babel:electron-main', function () {
+gulp.task('babel:electron', function() {
   return gulp.src([SRC_PATH + '/config/**/*.js', SRC_PATH + '/bin/**/*.js', SRC_PATH + '/common/**/*.js'], { base: SRC_PATH })
     .pipe(babel({
       presets: ['es2015']
@@ -58,22 +60,24 @@ gulp.task('babel:electron-main', function () {
 });
 
 
-gulp.task('watch', ['babel:electron-main', 'webpack:dev'], function () {
+gulp.task('watch', ['babel:electron', 'webpack:dev'], function() {
 
   electron.start();
   gulp.watch([BUILD_PATH + '/{bin, common, config}/**/*.js'], electron.restart);
   gulp.watch([RESOURCE_BUILD_PATH + '/**/*.{html,js,less,css,vue}'], electron.reload);
 });
 
-gulp.task('watch:build', function () {
+gulp.task('watch:build', function() {
   gulp.watch([RESOURCE_SRC_PATH + '/**/*.{html,js,less,css,vue}'], ['webpack:dev']);
-  gulp.watch([SRC_PATH + '/bin/**/*.js', SRC_PATH + '/{common, config}/**/*.js'], ['babel:electron-main']);
+  gulp.watch([SRC_PATH + '/bin/**/*.js', SRC_PATH + '/{common, config}/**/*.js'], ['babel:electron']);
 });
 
-gulp.task('copy:lib', function () {
+gulp.task('copy:lib', function() {
   return gulp.src([RESOURCE_SRC_PATH + '/lib/**/*.{js,swf}'], { base: RESOURCE_SRC_PATH + '/lib' })
     .pipe(gulp.dest(RESOURCE_BUILD_PATH + '/lib/'));
 });
 
 
 gulp.task('dev', ['copy:lib', 'watch:build', 'watch']);
+
+gulp.task('build', ['copy:lib', 'babel:electron', 'webpack:build'], function() {});
