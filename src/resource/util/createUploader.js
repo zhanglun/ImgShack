@@ -57,6 +57,8 @@ export const createUploader = (opt) => {
         // var sourceLink = domain + res.key; 获取上传成功后的文件的Url
       },
       'Error': function (up, err, errTip) {
+        console.log(arguments);
+        alert(errTip);
         // 上传出错时,处理相关的事情
       },
       'UploadComplete': function () {

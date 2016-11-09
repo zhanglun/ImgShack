@@ -165,6 +165,12 @@
           setFile(vm.uploadList, file.id, 'upload_at', moment(file.upload_at).format('YYYY-MM-DD HH:mm:ss'));
           setFile(vm.uploadList, file.id, 'thumbnail', thumbnail);
         });
+
+        uploader.bind('Error', () => {
+          // TODO: 
+          console.log(arguments);
+          // remove();
+        });
         this.uploader = uploader;
       }
     }
