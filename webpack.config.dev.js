@@ -11,13 +11,9 @@ var BUILD_PATH = path.resolve(ROOT_PATH, 'build');
 // 前端代码
 var RESOURCE_SRC_PATH = path.resolve(SRC_PATH, 'resource');
 var RESOURCE_BUILD_PATH = path.resolve(BUILD_PATH, 'resource');
-
-
 var webpackConfig = require('./webpack.config');
 
-webpackDevConfig = Object.assign({}, webpackConfig);
-
-webpackDevConfig = Object.assign({}, webpackDevConfig, {
+webpackDevConfig = Object.assign({}, webpackConfig, {
   devServer: {
     historyApiFallback: true,
     hot: true,
@@ -51,4 +47,4 @@ webpackDevConfig = Object.assign({}, webpackDevConfig, {
   ],
 });
 
-module.export = webpackDevConfig;
+module.exports = webpackDevConfig;

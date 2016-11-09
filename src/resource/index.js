@@ -1,13 +1,11 @@
 import './css/base.less';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Vuex from 'vuex';
 
 import UploaderView from './components/Uploader.vue';
 import SettingsView from './components/Settings.vue';
 
 Vue.use(VueRouter);
-Vue.use(Vuex);
 
 Vue.config.devtools = true;
 Vue.config.debug = true;
@@ -24,23 +22,33 @@ const router = new VueRouter({
   linkActiveClass: 'nav-item__link--active'
 });
 
-const store = new Vuex.Store({
-  state: {
-    count: 0,
-  },
-  mutations: {
-    increment(state) {
-      state.count++;
-    }
-  }
-});
-
-store.commit('increment');
-store.commit('increment');
-
-console.log(store.state.count); // -> 1
-
 new Vue({
   router,
-  store
 }).$mount('#app');
+
+// let domApp = document.getElementById('app');
+// // let domApp = document;
+// domApp.addEventListener('drag', function(e) {
+//   console.log('drag', e);
+// }, false);
+// domApp.addEventListener('dragstart', function(e) {
+//   console.log('drag start', e);
+// }, false);
+// domApp.addEventListener('dragenter', function(e) {
+//   console.log('drag enter', e);
+// }, false);
+// domApp.addEventListener('dragover', function(e) {
+//   console.log('drag over', e);
+//   let layer = document.createElement('div');
+//   layer.className = 'draglayer';
+//   if (!e.target.classList.contains('draglayer')) {
+//     domApp.appendChild(layer);
+//   }
+// }, false);
+// domApp.addEventListener('dragleave', function(e) {
+//   console.log('drag leave', e);
+// }, false);
+// domApp.addEventListener('drop', function(e) {
+//   console.log('drop', e);
+//   domApp.removeChild(domApp.querySelectorAll('.draglayer'));
+// }, false);
