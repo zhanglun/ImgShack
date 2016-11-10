@@ -9,7 +9,7 @@
   "scripts": {
     "start": "electron ./build/bin/main.js --debug",
     "build:all": "electron-packager . --all --overwrite --version=0.37.8",
-    "build:mac": "electron-packager . ImgShack --platform=darwin --arch=x64 --overwrite --out ./dist --version=0.37.8 --no-prune --ignore='node_modules|src|dist|test'",
+    "build:mac": "electron-packager . ImgShack --platform=darwin --arch=x64 --overwrite --icon ./assets/logo.icns --out ./dist --version=0.37.8 --no-prune --ignore='node_modules|src|dist|test'",
     "build:win64": "electron-packager ./ ImgShack --platform=win32 --arch=x64 --icon=./assets/img/ImgShack.png --overwrite --out ./dist --version=0.37.8",
     "build:win32": "electron-packager ./ ImgShack --platform=win32 --arch=ia32 --icon=./assets/img/ImgShack.png --overwrite --out ./dist --version=0.37.8 --app-version=1.0.0"
   },
