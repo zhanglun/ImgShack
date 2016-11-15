@@ -1,8 +1,10 @@
 import electron from 'electron';
+import menuTemplates from './menu';
+console.log(menuTemplates);
 import { client as devClient } from 'electron-connect';
 
 const app = electron.app;
-// const Menu = electron.Menu;
+const Menu = electron.Menu;
 const BrowserWindow = electron.BrowserWindow;
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -16,11 +18,11 @@ function createWindow() {
     width: 337,
     height: 700,
     // frame: false,
-    maximizable: false,
-    resizable: false,
+    // maximizable: false,
+    // resizable: false,
   });
 
-  // Menu.setApplicationMenu(customMenu);
+  Menu.setApplicationMenu(menuTemplates);
   // 不显示菜单栏
   // mainWindow.setMenu(null);
   // and load the index.html of the bin.

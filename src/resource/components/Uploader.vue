@@ -36,7 +36,6 @@
 
   function saveFile(file) {
     db.files.update({id: file.id}, {$set: file}, { upsert: true }, (err, result) => {
-      console.log(arguments);
       console.log('保存成功！');
     })
   }
@@ -67,6 +66,7 @@
 
       // 粘贴剪切板图片
       document.querySelector('.uploader').addEventListener('paste', (e) => {
+        debugger;
         let clipboard = e.clipboardData;
         let type = clipboard.items[0].type;
         if (type.match(/image/)) {
