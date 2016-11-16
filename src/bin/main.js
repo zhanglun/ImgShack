@@ -1,6 +1,5 @@
 import electron from 'electron';
 import menuTemplates from './menu';
-console.log(menuTemplates);
 import { client as devClient } from 'electron-connect';
 
 const app = electron.app;
@@ -23,8 +22,6 @@ function createWindow() {
   });
 
   Menu.setApplicationMenu(menuTemplates);
-  // 不显示菜单栏
-  // mainWindow.setMenu(null);
   // and load the index.html of the bin.
   mainWindow.loadURL(`file://${ __dirname }/../resource/index.html`);
   // for gulp reload
@@ -33,15 +30,9 @@ function createWindow() {
 
   // Emitted when the window is closed.
   mainWindow.on('closed', () => {
-    // Dereference the window object, usually you would store windows
-    // in an array if your bin supports multi windows, this is the time
-    // when you should delete the corresponding element.
     mainWindow = null;
   });
   mainWindow.on('‘ready-to-show', () => {
-    // mainWindow.webContents.send(INIT_APP, {
-    //   data: 123123123
-    // })
   });
   return mainWindow;
 }
