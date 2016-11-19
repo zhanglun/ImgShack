@@ -1,7 +1,6 @@
 import electron from 'electron';
 import menuTemplates from './menu';
-console.log(menuTemplates);
-import { client as devClient } from 'electron-connect';
+// import { client as devClient } from 'electron-connect';
 
 const app = electron.app;
 const Menu = electron.Menu;
@@ -28,8 +27,8 @@ function createWindow() {
   // and load the index.html of the bin.
   mainWindow.loadURL(`file://${ __dirname }/../resource/index.html`);
   // for gulp reload
-  devClient.create(mainWindow);
-  mainWindow.webContents.openDevTools();
+  // devClient.create(mainWindow);
+  // mainWindow.webContents.openDevTools();
 
   // Emitted when the window is closed.
   mainWindow.on('closed', () => {
