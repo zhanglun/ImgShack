@@ -39,9 +39,9 @@ gulp.task('webpack:build', ['babel:electron'], function(callback) {
   var webpackConfigBuild = Object.create(webpackBuildConfig);
   webpack(webpackConfigBuild, function(err, stats) {
     if (err) {
-      throw new gutil.PluginError("webpack:build", err);
+      throw new gutil.PluginError('webpack:build', err);
     }
-    gutil.log("[webpack:build]", stats.toString({
+    gutil.log('[webpack:build]', stats.toString({
       colors: true
     }));
     callback();
@@ -60,7 +60,7 @@ gulp.task('babel:electron', function() {
 });
 
 
-gulp.task('watch', ['babel:electron', 'webpack:dev'], function() {
+gulp.task('watch', function() {
 
   electron.start();
   gulp.watch([BUILD_PATH + '/{bin, common, config}/**/*.js'], electron.restart);
