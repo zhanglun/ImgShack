@@ -20,7 +20,6 @@
         {{file.upload_at}}
       </div>
     </div>
-
   </div>
 </template>
 <script>

@@ -1,6 +1,5 @@
 import electron from 'electron';
 import menuTemplates from './menu';
-import { client as devClient } from 'electron-connect';
 
 const app = electron.app;
 const Menu = electron.Menu;
@@ -14,8 +13,8 @@ function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     title: 'ImgShack',
-    width: 337,
-    height: 700,
+    // width: 337,
+    // height: 700,
     // frame: false,
     // maximizable: false,
     // resizable: false,
@@ -25,7 +24,6 @@ function createWindow() {
   // and load the index.html of the bin.
   mainWindow.loadURL(`file://${ __dirname }/../resource/index.html`);
   // for gulp reload
-  devClient.create(mainWindow);
   mainWindow.webContents.openDevTools();
 
   // Emitted when the window is closed.

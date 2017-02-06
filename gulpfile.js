@@ -1,6 +1,7 @@
 var path = require('path');
 var gulp = require('gulp');
-var babel = require("gulp-babel");
+var argv = require('yargs').argv;
+var babel = require('gulp-babel');
 var gutil = require('gulp-util');
 var webpack = require('webpack');
 var webpackConfig = require('./webpack.config.js');
@@ -16,10 +17,10 @@ var BUILD_PATH = path.resolve(ROOT_PATH, 'build');
 var RESOURCE_SRC_PATH = path.resolve(SRC_PATH, 'resource');
 var RESOURCE_BUILD_PATH = path.resolve(BUILD_PATH, 'resource');
 
+console.log(argv);
 
 gulp.task('webpack:dev', function() {
   console.log('webpack: dev');
-
   var webpackConfigDev = Object.create(webpackDevConfig);
 
   webpack(webpackConfigDev, function(err, status) {
@@ -35,7 +36,6 @@ gulp.task('webpack:dev', function() {
 
 gulp.task('webpack:build', ['babel:electron'], function(callback) {
   console.log('webpack: building');
-
   var webpackConfigBuild = Object.create(webpackBuildConfig);
   webpack(webpackConfigBuild, function(err, stats) {
     if (err) {

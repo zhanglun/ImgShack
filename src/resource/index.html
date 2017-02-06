@@ -13,6 +13,7 @@
     <div id="app" class="app" draggable="true">
         <div class="nav">
             <router-link to="/upload" class="nav-item__link">Upload</router-link>
+            <router-link to="/library" class="nav-item__link">Library</router-link>
             <router-link to="/settings" class="nav-item__link">Settings</router-link>
         </div>
         <keep-alive>
@@ -20,6 +21,3 @@
             </keepalive>
     </div>
 </body>
-<script>
-require('electron-connect').client.create();
-</script>

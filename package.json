@@ -8,6 +8,7 @@
   "main": "./build/bin/main.js",
   "scripts": {
     "start": "electron ./build/bin/main.js --debug",
+    "dev": "gulp dev",
     "build:all": "electron-packager . --all --overwrite --version=0.37.8",
     "build:mac": "electron-packager . ImgShack --platform=darwin --arch=x64 --overwrite --icon ./assets/logo.icns --out ./dist --version=0.37.8 --no-prune --ignore='node_modules|src|dist|test'",
     "build:win64": "electron-packager ./ ImgShack --platform=win32 --arch=x64 --overwrite --out ./dist --version=0.37.8",
@@ -31,6 +32,7 @@
     "md5": "^2.2.1",
     "moment": "^2.15.2",
     "nedb": "^1.8.0",
+    "node-notifier": "^5.0.2",
     "sweetalert": "^1.1.3",
     "timeago.js": "^2.0.3",
     "vue": "^2.0.1",
