@@ -58,10 +58,18 @@
               original_name: key,
               url,
               thumbnail,
-              upload_at: putTime,
+              upload_at: moment(new Date(putTime/1000)).format('YYYY-MM-DD HH:mm:ss'),
               size: size,
             }
             return fileInfo;
+          }).sort((a, b) => {
+            if(a.upload_at > b.upload_at) {
+              return -1;
+            } else if (a.upload_at < b.upload_at) {
+              return 1;
+            }else {
+              return 0;
+            }
           });
         }).catch((err) => {
           debugger;
