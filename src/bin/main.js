@@ -23,8 +23,6 @@ function createWindow() {
   Menu.setApplicationMenu(menuTemplates);
   // and load the index.html of the bin.
   mainWindow.loadURL(`file://${ __dirname }/../resource/index.html`);
-  // for gulp reload
-  mainWindow.webContents.openDevTools();
 
   // Emitted when the window is closed.
   mainWindow.on('closed', () => {

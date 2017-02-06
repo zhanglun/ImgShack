@@ -77,8 +77,6 @@
         }
       });
 
-      // 拖拽
-
     },
     methods: {
       clean() {
@@ -207,5 +205,17 @@
     flex-wrap: wrap;
     padding: 2px;
     width: 330px;
-  }
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+      width: 0.2em;
+    }
+
+    &::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #157efb;
+    }
+}
 </style>
