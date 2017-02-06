@@ -24,12 +24,24 @@ export const createToken = (keys, params) => {
     scope: undefined
   };
   flags = Object.assign(flags, params);
-  flags['deadline'] = new Date("2099/10/1") / 1000;
+  flags['deadline'] = new Date('2099/10/1') / 1000;
   let encodedFlags = base64_encode(JSON.stringify(flags));
   let encoded = Hmacsha1(keys.secret_key, encodedFlags);
-  // base64ToUrlSafe
-  let encodedSign = encoded.replace(/\//g, '_').replace(/\+/g, '-');
+  let encodedSign = base64ToUrlSafe(encoded);
   return keys.access_key + ':' + encodedSign + ':' + encodedFlags;
+};
+
+export const generateAccessToken = (keys, uri, body) => {
+  let parser = getLocation(uri);
+  let path = parser.pathname + parser.search;
+  let access = path + '\n';
+  if (body) {
+    access += body;
+  }
+  // 坑爹的七牛文档，参数顺序反了
+  let digest = Hmacsha1(keys.secret_key, access);
+  let safeDigest = base64ToUrlSafe(digest);
+  return 'QBox ' + keys.access_key + ':' + safeDigest;
 };
 
 /**
@@ -53,7 +65,11 @@ export const createThumbnailLink = (key, w = 60, h = 60) => {
   }
 };
 
-
+/**
+ * encode data by base64
+ * @param  {String} data to encode
+ * @return {String} encoded data
+ */
 function base64_encode(data) {
   var b64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
   var o1, o2, o3, h1, h2, h3, h4, bits, i = 0,
@@ -95,7 +111,16 @@ function base64_encode(data) {
   }
 
   return enc;
-};
+}
+
+function base64ToUrlSafe(v) {
+  return v.replace(/\//g, '_').replace(/\+/g, '-');
+}
+
+function urlsafeBase64Encode(jsonflags) {
+  let encoded = base64_encode(jsonflags);
+  return base64ToUrlSafe(encoded);
+}
 
 function utf8_encode(argString) {
   if (argString === null || typeof argString === 'undefined') {
@@ -149,4 +174,17 @@ function utf8_encode(argString) {
   }
 
   return utftext;
-};
+}
+
+function getLocation(href) {
+  var match = href.match(/^(https?\:)\/\/(([^:\/?#]*)(?:\:([0-9]+))?)([\/]{0,1}[^?#]*)(\?[^#]*|)(#.*|)$/);
+  return match && {
+    protocol: match[1],
+    host: match[2],
+    hostname: match[3],
+    port: match[4],
+    pathname: match[5],
+    search: match[6],
+    hash: match[7]
+  }
+}
